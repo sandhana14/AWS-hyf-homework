@@ -4,7 +4,7 @@ function useNotifications() {
   const [notifications, setNotifications] = useState([]);
 
   const createNotification = (text) => {
-    // hint: use setTimeout
+    setNotifications(text);
   };
 
   return { notifications, createNotification };
