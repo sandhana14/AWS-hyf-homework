@@ -47,7 +47,16 @@ function useProducts() {
     setCart(cart.filter((item) => item.id != product.id));
   };
 
-  return { products, cart, addProduct, removeProduct };
+  const calculateSum = () => {
+    let totalPrice = productsData.reduce(
+      (accumulator, current) => accumulator + Number(current.price),
+      0
+    );
+
+    return totalPrice;
+  };
+
+  return { products, cart, addProduct, removeProduct, calculateSum };
 }
 
 export default useProducts;

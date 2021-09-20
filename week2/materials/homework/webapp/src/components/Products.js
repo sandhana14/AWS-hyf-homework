@@ -1,7 +1,11 @@
 import useProducts from "../hooks/useProducts";
+import useNotifications from "../hooks/useNotification";
 
 function Products() {
-  const { products, cart, addProduct, removeProduct } = useProducts();
+  const { products, cart, addProduct, removeProduct, calculateSum } =
+    useProducts();
+
+  const { notifications, createNotification } = useNotifications();
 
   const isInCart = (product) => {
     return !cart.find((item) => item.id === product.id);
@@ -48,7 +52,7 @@ function Products() {
       </div>
       <form>
         <div className="form-group mt-4 col-md-4">
-          <p className="mt-4">You will be charged: ?</p>
+          <p className="mt-4">You will be charged: {calculateSum()}</p>
 
           <label htmlFor="exampleInputEmail1">Email address</label>
           <input
@@ -62,9 +66,20 @@ function Products() {
             We'll never share your email with anyone else.
           </small>
         </div>
-        <button type="submit" className="btn btn-primary mt-3">
+
+        <button
+          type="submit"
+          className="btn btn-primary mt-3"
+          onClick={(e) => {
+            e.preventDefault();
+            createNotification('"Thanks for buying products from our website"');
+          }}
+        >
           Buy now
         </button>
+        <br />
+        <br />
+        <h4 className="text-success">{notifications}</h4>
       </form>
     </div>
   );
